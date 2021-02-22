@@ -1,0 +1,20 @@
+<%= form_with model: @device do |form| %>
+  <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :device_name %>
+  </div>
+
+  <div>
+    <%= form.label :type %><br>
+    <%= form.text_area :device_type %>
+  </div>
+
+  <div>
+    <%= form.label :port %><br>
+    <%= form.text_area :device_port %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
