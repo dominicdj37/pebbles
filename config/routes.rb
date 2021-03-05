@@ -7,4 +7,9 @@ Rails.application.routes.draw do
   get '/devices', to: 'my_devices#index' 
   get '/devices/new', to: 'my_devices#new'
   post '/devices', to: 'my_devices#create'
+
+  namespace :api do
+    get '/settings', to: 'settings#getSettings'
+  end
+
 end

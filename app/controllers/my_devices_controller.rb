@@ -20,8 +20,8 @@ class MyDevicesController < ApplicationController
 
     private
 
-        def device_params
-            params.require(:device).permit(:device_name, :device_port, :device_type)
-        end 
+    def device_params
+      params.require(:device).permit(:device_name, :device_port, :device_type)
+    end 
 
 end
