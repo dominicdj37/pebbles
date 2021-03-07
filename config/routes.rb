@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     get '/settings', to: 'settings#getSettings'
+
+    post 'authenticate', to: 'authentication#create'
   end
 
 end
