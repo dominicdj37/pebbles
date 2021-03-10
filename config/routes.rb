@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     get '/settings', to: 'settings#getSettings'
 
     post 'authenticate', to: 'authentication#create'
+    post 'sign_up', to: 'user#create'
   end
 
 end

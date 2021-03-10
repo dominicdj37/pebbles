@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
 
 
+    def returnUserModel 
+        @user.as_json(except: [:password_digest, :created_at, :updated_at])
+    end
+
     def render_200(result = true, sucess_code = nil)
         sucess_code = "Sucessfully completed request" if sucess_code.nil?
 
@@ -16,6 +20,14 @@ class ApplicationController < ActionController::Base
         end
 
     end
+
+    def render_500(error_code = nil, error_message = nil)
+        error_code = 'internal_server_error' if error_code.nil?
+        respond_to do |format|
+            format.json { render_json_error(500, error_code, error_message) }
+        end
+    end
+
 
     def render_400(error_code = nil, error_message = nil)
         error_code = 'bad_request' if error_code.nil?

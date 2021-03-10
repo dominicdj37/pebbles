@@ -32,9 +32,5 @@ class Api::AuthenticationController < ApplicationController
         render_403()
     end
 
-    def returnUserModel 
-        @user.as_json(except: [:password_digest, :created_at, :updated_at])
-    end
-
-
+    
 end
