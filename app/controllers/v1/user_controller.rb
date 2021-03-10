@@ -1,4 +1,4 @@
-class Api::UserController < ApplicationController
+class V1::UserController < ApplicationController
     
     skip_before_action :verify_authenticity_token
     rescue_from ActionController::ParameterMissing, with: :parameter_missing

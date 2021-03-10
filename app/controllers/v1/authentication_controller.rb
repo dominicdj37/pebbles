@@ -1,4 +1,4 @@
-class Api::AuthenticationController < ApplicationController
+class V1::AuthenticationController < ApplicationController
 
     class AuthenticationError < StandardError; end 
 

@@ -1,4 +1,4 @@
-class Api::SettingsController < ApplicationController
+class V1::SettingsController < ApplicationController
 
     def getSettings
         render_200({
