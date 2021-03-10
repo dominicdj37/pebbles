@@ -1,8 +1,8 @@
 class Api::UserController < ApplicationController
+    
     skip_before_action :verify_authenticity_token
     rescue_from ActionController::ParameterMissing, with: :parameter_missing
     rescue_from ActiveRecord::RecordNotUnique, :with => :my_rescue_method
-
 
     def create
         @user = User.new(
