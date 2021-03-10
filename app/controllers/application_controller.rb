@@ -17,4 +17,37 @@ class ApplicationController < ActionController::Base
 
     end
 
+    def render_400(error_code = nil, error_message = nil)
+        error_code = 'bad_request' if error_code.nil?
+        respond_to do |format|
+            format.json { render_json_error(400, error_code, error_message) }
+        end
+    end
+
+    def render_401(error_code = nil, error_message)
+        error_code = 'unauthorized_access' if error_code.nil?
+        respond_to do |format|
+          format.json { render_json_error(401, error_code, error_message) }
+        end
+      end
+
+      def render_403(error_code = nil, error_message = nil)
+        error_code = 'forbidden' if error_code.nil?
+        respond_to do |format|
+          format.json { render_json_error(403, error_code, error_message) }
+        end
+      end
+
+    def render_json_error(status_code, error_code, error_message = nil)
+      response = {
+        error: {
+          code: error_code,
+          message: error_message
+        }
+      }
+  
+      render json: response, status: status_code
+    end
+
+
 end

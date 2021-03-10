@@ -7,4 +7,6 @@ class Api::SettingsController < ApplicationController
             firebase_api_key: "abcdxyz123!@#"
         })
     end
+
+    
 end
