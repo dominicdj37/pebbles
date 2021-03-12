@@ -65,7 +65,8 @@ class ApplicationController < ActionController::Base
 
       response = {
         error: {
-          code: error_code,
+          code: status_code,
+          error_type: error_code,
           message: error_message,
           error_code_params: error_code_params
         }
