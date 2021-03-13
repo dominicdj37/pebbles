@@ -1,4 +1,4 @@
-class Api::SettingsController < ApplicationController
+class V1::SettingsController < ApplicationController
 
     def getSettings
         render_200({
@@ -7,4 +7,6 @@ class Api::SettingsController < ApplicationController
             firebase_api_key: "abcdxyz123!@#"
         })
     end
+
+    
 end

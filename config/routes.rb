@@ -8,8 +8,11 @@ Rails.application.routes.draw do
   get '/devices/new', to: 'my_devices#new'
   post '/devices', to: 'my_devices#create'
 
-  namespace :api do
-    get '/settings', to: 'settings#getSettings'
+  namespace :v1 do
+    get '/settings', to: 'settings#getSettings' 
+
+    post '/authenticate', to: 'authentication#create'
+    post '/sign_up', to: 'user#create'
   end
 
 end
