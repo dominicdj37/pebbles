@@ -53,6 +53,7 @@ class V1::UserController < ApplicationController
 
 
         if @user 
+            puts "temperature Port value: " + FIREBASE_DB.getPortValue("D5").to_s
             render_200(returnUserModel())
         else 
             render_500()
