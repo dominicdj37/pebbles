@@ -32,7 +32,6 @@ class V1::UserController < ApplicationController
             return
         end
 
-        
         userExist = User.find_by(username: params.require(:username)) 
         if userExist 
             render_403(nil, "Username exist", { error_code_params: { error_type: "username_taken" } })
