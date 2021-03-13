@@ -2,6 +2,9 @@ class ApplicationController < ActionController::Base
 
 
     def returnUserModel 
+
+      UserRepresenter.new(user).as_json
+
         @user.as_json(except: [:password_digest, :created_at, :updated_at])
     end
 

@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+daniel = User.create(username: "daniel", email: "d@f.com", password: "test")
+
+hallroom = Pebble.create(pebble_key: "test1234", pebble_name: "hallroom")

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_10_122905) do
+ActiveRecord::Schema.define(version: 2021_03_13_150133) do
 
   create_table "devices", force: :cascade do |t|
     t.string "device_name"
@@ -18,6 +18,21 @@ ActiveRecord::Schema.define(version: 2021_03_10_122905) do
     t.string "device_state"
     t.integer "device_port"
     t.integer "device_power"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "pebble_connections", force: :cascade do |t|
+    t.string "connection_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "pebble_id"
+    t.integer "user_id"
+  end
+
+  create_table "pebbles", force: :cascade do |t|
+    t.string "pebble_key"
+    t.string "pebble_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
