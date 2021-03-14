@@ -2,10 +2,8 @@ class ApplicationController < ActionController::Base
 
 
     def returnUserModel 
-
-      UserRepresenter.new(user).as_json
-
-        @user.as_json(except: [:password_digest, :created_at, :updated_at])
+      UserSerializer.new(@user).as_json 
+        # @user.as_json(except: [:password_digest, :created_at, :updated_at])
     end
 
     def render_200(result = true, sucess_code = nil)
