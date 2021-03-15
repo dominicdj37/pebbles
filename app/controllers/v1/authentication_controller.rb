@@ -6,6 +6,8 @@ class V1::AuthenticationController < ApplicationController
     rescue_from ActionController::ParameterMissing, with: :parameter_missing
     rescue_from AuthenticationError, with: :handle_unauthenticated
 
+   
+   
     def create 
        
         begin
@@ -19,18 +21,19 @@ class V1::AuthenticationController < ApplicationController
         
 
         begin
-        if @user.authenticate(params.require(:password))
-            token = AuthenticationTokenService.call(@user.id)
-            render_200(returnUserModel())
-        else 
-            # raise AuthenticationError
-            render_403(nil, "Password do not match", { error_code_params: { error_type: "invalid_password" } })
+            if @user.authenticate(params.require(:password))
+                token = AuthenticationTokenService.call(@user.id)
+                cookies[:token] = token
+                render_200(returnUserModel())
+            else 
+                # raise AuthenticationError
+                render_403(nil, "Password do not match", { error_code_params: { error_type: "invalid_password" } })
+                return
+            end
+            rescue ActionController::ParameterMissing => e
+            render_403(nil, "Password missing", { error_code_params: { error_type: "empty_password" } })
             return
         end
-        rescue ActionController::ParameterMissing => e
-        render_403(nil, "Password missing", { error_code_params: { error_type: "empty_password" } })
-        return
-    end
   
     end
 

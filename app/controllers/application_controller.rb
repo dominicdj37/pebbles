@@ -1,10 +1,39 @@
 class ApplicationController < ActionController::Base
 
 
-    def returnUserModel 
-      UserSerializer.new(@user).as_json 
-        # @user.as_json(except: [:password_digest, :created_at, :updated_at])
+  
+  def returnUserModel 
+    UserSerializer.new(@user).as_json 
+  end
+
+
+
+
+
+
+  # region authentication ---------------------------------------------------------------------------------------------------------------------------
+
+  def authenticate_user 
+    token = cookies[:token]
+    puts "token = #{token}"
+        
+    if token 
+      user_id = AuthenticationTokenService.decode(token)
+      if User.find(user_id)
+        return
+      end
     end
+    
+    render_401(nil, "You do not have permission to access this.")
+  end
+
+  
+
+  # ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+  # region errors -----------------------------------------------------------------------------------------------------------------------------------
 
     def render_200(result = true, sucess_code = nil)
         sucess_code = "Sucessfully completed request" if sucess_code.nil?
@@ -75,6 +104,7 @@ class ApplicationController < ActionController::Base
   
       render json: response, status: status_code
     end
+    # ------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 end
