@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
 
 
-  
+
   def returnUserModel 
     UserSerializer.new(@user).as_json 
   end
@@ -13,10 +13,17 @@ class ApplicationController < ActionController::Base
 
   # region authentication ---------------------------------------------------------------------------------------------------------------------------
 
+  ActionController::HttpAuthentication::Token
+
   def authenticate_user 
-    token = cookies[:token]
-    puts "token = #{token}"
+    token = cookies[:_shared_token_cookie]
+   
+    # puts "token = #{token}"
         
+    # cookies.each do |cookie|
+    #   puts "each cookie = #{cookie}"
+    # end   
+    
     if token 
       user_id = AuthenticationTokenService.decode(token)
       if User.find(user_id)
@@ -26,8 +33,6 @@ class ApplicationController < ActionController::Base
     
     render_401(nil, "You do not have permission to access this.")
   end
-
-  
 
   # ------------------------------------------------------------------------------------------------------------------------------------------------
 

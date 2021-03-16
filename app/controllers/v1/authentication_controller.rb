@@ -23,7 +23,13 @@ class V1::AuthenticationController < ApplicationController
         begin
             if @user.authenticate(params.require(:password))
                 token = AuthenticationTokenService.call(@user.id)
-                cookies[:token] = token
+                puts "generated token: #{token}"
+                cookies[:_shared_token_cookie] = token
+                
+                cookies.each do | cookie |
+                    puts "each cookie: #{cookie}"
+                end
+
                 render_200(returnUserModel())
             else 
                 # raise AuthenticationError
