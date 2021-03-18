@@ -1,3 +1,4 @@
 class PebbleSerializer < ApplicationSerializer
-    attributes :pebble_name, :pebble_key
+    attributes :pebble_name
+    has_many :users
 end

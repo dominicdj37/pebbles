@@ -43,6 +43,28 @@ class V1::AuthenticationController < ApplicationController
   
     end
 
+
+    def auto_login 
+        cookies.each do |cookie|
+            puts "each cookie: #{cookie}"
+        end
+        token = cookies[:_shared_token_cookie]
+        puts "token received: #{token}"
+        if token 
+          user_id = AuthenticationTokenService.decode(token)
+
+          @user = User.find(user_id)
+          if @user 
+            render_200(returnUserModel())
+            return
+          end
+        end
+        
+        render_403(nil, "Please login to continue", { error_code_params: { error_type: "unauthorized_user" } })
+        return
+    end
+
+
     private
 
     def handle_unauthenticated
