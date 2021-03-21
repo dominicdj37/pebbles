@@ -21,12 +21,7 @@ class V1::PebbleController < ApplicationController
 
     def getUserPebbles
         pebbles = @user.pebbles
-
         ActiveModelSerializers::SerializableResource.new(pebbles, each_serializer: PebbleSerializer).as_json
-
-        # PebbleSerializer.new(pebbles, each_serializer: PebbleSerializer).as_json
-        # PebbleSerializer.new(pebbles, each_serializer_mapping: PebbleSerializer ).as_json
-        # render :json => pebbles, each_serializer: PebbleSerializer
     end
 
     

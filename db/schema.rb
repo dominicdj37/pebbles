@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_13_150133) do
+ActiveRecord::Schema.define(version: 2021_03_21_145926) do
 
   create_table "devices", force: :cascade do |t|
     t.string "device_name"
@@ -35,6 +35,9 @@ ActiveRecord::Schema.define(version: 2021_03_13_150133) do
     t.string "pebble_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "status"
+    t.string "up_time"
+    t.integer "owner_user_id"
   end
 
   create_table "users", force: :cascade do |t|
