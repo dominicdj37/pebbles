@@ -1,9 +1,58 @@
 class ApplicationController < ActionController::Base
 
 
-    def returnUserModel 
-        @user.as_json(except: [:password_digest, :created_at, :updated_at])
+  def returnUserModel 
+    UserSerializer.new(@user).as_json 
+  end
+
+
+
+  def getCurrentUser 
+    token = cookies[:_shared_token_cookie]
+    puts "token received: #{token}"
+    if token 
+      user_id = AuthenticationTokenService.decode(token)
+      puts "user id #{user_id}"
+      user = User.find(user_id)
+      if user 
+        return user
+      end
     end
+    
+    render_403(nil, "Please login to continue", { error_code_params: { error_type: "unauthorized_user" } })
+    return
+end
+
+
+
+  # region authentication ---------------------------------------------------------------------------------------------------------------------------
+
+  ActionController::HttpAuthentication::Token
+
+  def authenticate_user 
+    token = cookies[:_shared_token_cookie]
+   
+    puts "token = #{token}"
+        
+    cookies.each do |cookie|
+      puts "each cookie = #{cookie}"
+    end   
+    
+    if token 
+      user_id = AuthenticationTokenService.decode(token)
+      if User.find(user_id)
+        return
+      end
+    end
+    
+    render_401(nil, "You do not have permission to access this.")
+  end
+
+  # ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+  # region errors -----------------------------------------------------------------------------------------------------------------------------------
 
     def render_200(result = true, sucess_code = nil)
         sucess_code = "Sucessfully completed request" if sucess_code.nil?
@@ -74,6 +123,7 @@ class ApplicationController < ActionController::Base
   
       render json: response, status: status_code
     end
+    # ------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 end
