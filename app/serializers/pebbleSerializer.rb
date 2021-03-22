@@ -1,5 +1,5 @@
 class PebbleSerializer < ApplicationSerializer
-    attributes :pebble_name, :status, :up_time, :owner_user_id
+    attributes :pebble_name, :status, :up_time, :owner_user_id, :id 
     has_many :users
 
 

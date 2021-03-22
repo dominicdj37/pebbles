@@ -1,13 +1,27 @@
 class ApplicationController < ActionController::Base
 
 
-
   def returnUserModel 
     UserSerializer.new(@user).as_json 
   end
 
 
 
+  def getCurrentUser 
+    token = cookies[:_shared_token_cookie]
+    puts "token received: #{token}"
+    if token 
+      user_id = AuthenticationTokenService.decode(token)
+      puts "user id #{user_id}"
+      user = User.find(user_id)
+      if user 
+        return user
+      end
+    end
+    
+    render_403(nil, "Please login to continue", { error_code_params: { error_type: "unauthorized_user" } })
+    return
+end
 
 
 
@@ -18,11 +32,11 @@ class ApplicationController < ActionController::Base
   def authenticate_user 
     token = cookies[:_shared_token_cookie]
    
-    # puts "token = #{token}"
+    puts "token = #{token}"
         
-    # cookies.each do |cookie|
-    #   puts "each cookie = #{cookie}"
-    # end   
+    cookies.each do |cookie|
+      puts "each cookie = #{cookie}"
+    end   
     
     if token 
       user_id = AuthenticationTokenService.decode(token)

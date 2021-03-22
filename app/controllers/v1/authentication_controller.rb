@@ -5,6 +5,7 @@ class V1::AuthenticationController < ApplicationController
     skip_before_action :verify_authenticity_token
     rescue_from ActionController::ParameterMissing, with: :parameter_missing
     rescue_from AuthenticationError, with: :handle_unauthenticated
+    rescue_from JWT::VerificationError, with: :handle_unauthenticated
 
    
    
