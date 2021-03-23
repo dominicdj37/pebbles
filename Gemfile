@@ -42,6 +42,9 @@ gem 'jwt'
 
 gem 'firebase', '~> 0.2.8'
 
+gem 'fcm'
+
+
 gem 'active_model_serializers'
 
 group :development, :test do

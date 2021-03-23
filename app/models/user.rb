@@ -4,5 +4,6 @@ class User < ApplicationRecord
 
     has_many :pebble_connections
     has_many :pebbles, through: :pebble_connections
+    has_many :mobile_devices
 end
  

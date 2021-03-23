@@ -1,0 +1,4 @@
+class MobileDevice < ApplicationRecord
+    belongs_to :user, optional: true
+
+end
