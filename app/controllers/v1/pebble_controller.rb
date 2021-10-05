@@ -33,6 +33,14 @@ class V1::PebbleController < ApplicationController
             @pebble.save!
             @user.pebbles << @pebble
             @user.save!
+
+            tokens = MobileDevice.pluck(:fcm_tocken)
+            FcmPushJob.perform_later(
+                tokens,
+                "Hola!",
+                "#{@user.username} has connected his #{@pebble.pebble_name} pebble!"
+            )
+
             render_200 ( {
                 my_pebbles: getUserPebbles()
             } ) 
@@ -44,6 +52,10 @@ class V1::PebbleController < ApplicationController
 
 
     def share
+
+        @currentUser = getCurrentUser()
+
+
         @pebble = Pebble.find_by(id: params.require(:id)) 
         render_403(nil, "Pebble not found") and return unless @pebble 
         @user = User.find_by(username: params.require(:username)) 
@@ -57,6 +69,14 @@ class V1::PebbleController < ApplicationController
 
             @user.pebbles << @pebble
             @user.save!
+
+            tokens = @user.mobile_devices.pluck(:fcm_tocken)
+            FcmPushJob.perform_later(
+                tokens,
+                "Hi #{@user.username}!",
+                "#{@currentUser.username} has shared #{@pebble.pebble_name} pebble with you!"
+            )
+
             render_200 ( {
                 my_pebbles: getUserPebbles()
             } ) 

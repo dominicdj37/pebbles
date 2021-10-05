@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     get '/get_pebbles', to: 'pebble#getPebbles'
     post '/create_pebble', to: 'pebble#create'
     post '/share_pebble', to: 'pebble#share'
+    post '/save_token', to: 'mobile_device#registerToken'
+    post '/delete_token', to: 'mobile_device#deleteToken'
 
   end
 

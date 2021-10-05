@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_21_145926) do
+ActiveRecord::Schema.define(version: 2021_03_22_171539) do
 
   create_table "devices", force: :cascade do |t|
     t.string "device_name"
@@ -20,6 +20,13 @@ ActiveRecord::Schema.define(version: 2021_03_21_145926) do
     t.integer "device_power"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "mobile_devices", force: :cascade do |t|
+    t.string "fcm_tocken"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
   end
 
   create_table "pebble_connections", force: :cascade do |t|
