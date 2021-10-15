@@ -54,7 +54,14 @@ class V1::AuthenticationController < ApplicationController
         if token 
           user_id = AuthenticationTokenService.decode(token)
 
-          @user = User.find(user_id)
+        begin
+            @user = User.find(user_id)
+        rescue ActiveRecord::RecordNotFound => e
+            render_403(nil, "Please login to continue", { error_code_params: { error_type: "unauthorized_user" } })
+            return
+        end
+
+          
           if @user 
             render_200(returnUserModel())
             return
